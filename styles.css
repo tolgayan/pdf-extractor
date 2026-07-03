@@ -126,27 +126,10 @@ h2 {
 
 .drop-copy,
 .file-name,
-.status,
-.paste-panel p {
+.status {
   color: var(--muted);
   font-size: 14px;
   line-height: 1.45;
-}
-
-.paste-panel {
-  display: grid;
-  gap: 8px;
-}
-
-.paste-panel p {
-  margin: 0;
-}
-
-.paste-target {
-  width: 100%;
-  height: 1px;
-  overflow: hidden;
-  opacity: 0;
 }
 
 .actions {

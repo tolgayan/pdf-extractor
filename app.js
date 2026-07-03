@@ -7,8 +7,6 @@ const pdfPreview = document.getElementById("pdf-preview");
 const emptyPreview = document.getElementById("empty-preview");
 const shareButton = document.getElementById("share-button");
 const downloadLink = document.getElementById("download-link");
-const pasteButton = document.getElementById("paste-button");
-const pasteTarget = document.getElementById("paste-target");
 
 let currentPdfBlob = null;
 let currentPdfUrl = null;
@@ -47,41 +45,9 @@ dropZone.addEventListener("drop", (event) => {
   event.preventDefault();
   dropZone.classList.remove("is-dragging");
   const file = event.dataTransfer?.files?.[0];
-  if (isZipFile(file)) {
-    convertZip(file);
-  } else if (file) {
-    setStatus("Lutfen .zip dosyasi sec.", true);
-  }
-});
-
-pasteButton.addEventListener("click", async () => {
-  setStatus("Zip'i yapistirmayi dene. iPhone'da izin sorarsa izin ver.");
-
-  const clipboardFile = await readZipFromClipboard();
-  if (clipboardFile) {
-    convertZip(clipboardFile);
-    return;
-  }
-
-  pasteTarget.focus();
-});
-
-pasteTarget.addEventListener("paste", (event) => {
-  const file = findZipInFileList(event.clipboardData?.files);
   if (file) {
-    event.preventDefault();
     convertZip(file);
-    return;
   }
-
-  const itemFile = findZipInClipboardItems(event.clipboardData?.items);
-  if (itemFile) {
-    event.preventDefault();
-    convertZip(itemFile);
-    return;
-  }
-
-  setStatus("Clipboard icinde zip dosyasi gorunmedi. WhatsApp'tan once Dosyalara Kaydet gerekebilir.", true);
 });
 
 shareButton.addEventListener("click", async () => {
@@ -125,47 +91,6 @@ async function convertZip(file) {
     console.error(error);
     setStatus(error.message || "PDF olusturulamadi.", true);
   }
-}
-
-async function readZipFromClipboard() {
-  if (!navigator.clipboard?.read) {
-    return null;
-  }
-
-  try {
-    const items = await navigator.clipboard.read();
-    for (const item of items) {
-      const zipType = item.types.find((type) => type === "application/zip" || type === "application/x-zip-compressed");
-      if (zipType) {
-        const blob = await item.getType(zipType);
-        return new File([blob], "clipboard.zip", { type: blob.type || "application/zip" });
-      }
-    }
-  } catch (error) {
-    console.warn("Clipboard read failed", error);
-  }
-
-  return null;
-}
-
-function findZipInFileList(files) {
-  return Array.from(files || []).find(isZipFile) || null;
-}
-
-function findZipInClipboardItems(items) {
-  const item = Array.from(items || []).find((clipboardItem) => {
-    return clipboardItem.kind === "file" && isZipLike(clipboardItem.type);
-  });
-
-  return item?.getAsFile?.() || null;
-}
-
-function isZipFile(file) {
-  return Boolean(file && (isZipLike(file.type) || file.name?.toLowerCase().endsWith(".zip")));
-}
-
-function isZipLike(type) {
-  return type === "application/zip" || type === "application/x-zip-compressed";
 }
 
 function ensureLibraries() {

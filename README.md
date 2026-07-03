@@ -24,4 +24,3 @@ Arkadasina kurdurmak icin ayni HTTPS linkini gondermesi yeterli. Apple Developer
 - Ilk acilista JSZip, html2canvas ve jsPDF CDN'den yuklenir.
 - Fatura dosyalari sunucuya yuklenmez; zip ve PDF islemi tarayicida yapilir.
 - Ornek dosyalar `example_data` klasorundedir.
-- iPhone'da WhatsApp'tan kopyalanan zip'in dogrudan yapistirilmesi iOS clipboard davranisina baglidir. Calismazsa WhatsApp'ta `Save to Files`, sonra uygulamada `Zip dosyasi sec` akisini kullan.
