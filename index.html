@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#126c67">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Zip PDF">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Zip to PDF</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="icons/icon-192.svg">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="tool-panel" aria-labelledby="app-title">
+        <div class="heading">
+          <p class="eyebrow">Fatura donusturucu</p>
+          <h1 id="app-title">Zip icindeki HTML faturayi PDF yap</h1>
+        </div>
+
+        <label class="drop-zone" for="zip-input" id="drop-zone">
+          <input id="zip-input" type="file" accept=".zip,application/zip,application/x-zip-compressed">
+          <span class="drop-icon" aria-hidden="true">ZIP</span>
+          <span class="drop-title">Zip dosyasi sec</span>
+          <span class="drop-copy">Dosya cihazinda islenir; sunucuya yuklenmez.</span>
+        </label>
+
+        <div class="actions">
+          <button id="share-button" type="button" disabled>PDF Paylas</button>
+          <a id="download-link" class="button secondary disabled" download="fatura.pdf" aria-disabled="true">PDF Indir</a>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite">Hazir.</div>
+      </section>
+
+      <section class="preview-panel" aria-labelledby="preview-title">
+        <div class="preview-header">
+          <div>
+            <p class="eyebrow">Onizleme</p>
+            <h2 id="preview-title">PDF ciktisi</h2>
+          </div>
+          <p id="file-name" class="file-name">Henuz dosya secilmedi</p>
+        </div>
+        <iframe id="pdf-preview" class="pdf-preview" title="PDF onizleme"></iframe>
+        <div id="empty-preview" class="empty-preview">Zip secildikten sonra PDF burada gorunur.</div>
+      </section>
+    </main>
+
+    <div class="render-stage" aria-hidden="true">
+      <iframe id="html-frame" title="HTML render alani" sandbox="allow-scripts allow-same-origin"></iframe>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

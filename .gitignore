@@ -1,0 +1,8 @@
+node_modules/
+
+converted_pdfs/
+converted_pdfs_verified/
+example_data/
+
+.DS_Store
+npm-debug.log*
