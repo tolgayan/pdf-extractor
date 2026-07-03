@@ -1,4 +1,4 @@
-const CACHE_NAME = "zip-to-pdf-v1";
+const CACHE_NAME = "zip-to-pdf-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
